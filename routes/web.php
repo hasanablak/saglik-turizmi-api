@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Transport;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	$x = Transport::with('startProvince')
+		->with('startCounty')
+		->with('startDistrict')
+		->first();
+
+	$y = User::with('transports')->get();
+
+	/**
+	 * User'lardan sadece transportu olanların gelmesini istiyorum
+	 */
+	$a = User::whereHas('transports')->with('transports')->get();
+
+
+
+	return response($a);
 });
