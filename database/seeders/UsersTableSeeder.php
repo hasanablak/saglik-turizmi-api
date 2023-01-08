@@ -36,6 +36,8 @@ class UsersTableSeeder extends Seeder
 		$users = User::factory(10)->create();
 		$types = UserTypes::where('name', '!=', 'admin')->get()->pluck("id");
 
+		//UserTypes::where('name','!=','admin')->get()->modelKeys();
+
 		foreach ($users as $user) {
 			$user->types()->attach($types->random());
 		}
