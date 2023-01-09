@@ -32,3 +32,26 @@ Route::get('/', function () {
 
 	return response($a);
 });
+
+
+Route::get("second", function () {
+
+	$users = User::whereHas('transports')
+		->with('transports')
+		->get();
+	return $users;
+	foreach ($users as $user) {
+		foreach ($user->transports as $transport) {
+			dd($transport->pivot->types->name);
+		}
+	}
+
+	return $users;
+});
+
+Route::get("third", function () {
+	$users = User::whereHas('areaTests')
+		->with('areaTests')
+		->get();
+	return $users;
+});

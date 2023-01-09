@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\{UserTypes, Transport};
+use App\Models\{UserTypes, Transport, TransportsUsers};
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\TravellerFilters\TravellerFilters;
 
@@ -37,20 +37,29 @@ class User extends Authenticatable
 	{
 		return $this->belongsToMany(
 			UserTypes::class,
-			'user_types_users',
+			'transports_users',
 			'user_id',
 			'user_types_id'
 		);
 	}
-
 	public function transports()
 	{
+		/*
 		return $this->belongsToMany(
 			Transport::class,
 			'transports_users',
 			'user_id',
 			'transports_id'
-		);
+		)->withPivot('user_types_id');
+		*/
+		return $this->belongsToMany(
+			Transport::class,
+			'transports_users',
+			'user_id',
+			'transports_id'
+		)
+			->withPivot('user_types_id')
+			->using(TransportsUsers::class);
 	}
 
 	protected function password(): Attribute

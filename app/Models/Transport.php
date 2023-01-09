@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\{User, Province, County, District};
+use App\Models\{User, Province, County, District, Car};
 
 class Transport extends Model
 {
@@ -60,5 +60,10 @@ class Transport extends Model
 	public function finishDistrict()
 	{
 		return $this->belongsTo(District::class, "finish_province_id", "id");
+	}
+
+	public function car()
+	{
+		return $this->belongsTo(Car::class, "car_id", "id");
 	}
 }

@@ -16,6 +16,6 @@ class TravellerController extends Controller
 
 	public function index()
 	{
-		return $this->traveller->getAllTravellers();
+		return $this->traveller->getAllTravellers(request()->has("types") ? request()->types : false);
 	}
 }
