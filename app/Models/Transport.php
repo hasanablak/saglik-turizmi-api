@@ -10,7 +10,18 @@ class Transport extends Model
 {
 	use HasFactory;
 
-	public function users()
+	protected $fillable = [
+		"car_id",
+		"start_province_id",
+		"start_countie_id",
+		"start_district_id",
+		"finish_province_id",
+		"finish_countie_id",
+		"finish_district_id",
+		"start_date"
+	];
+
+	public function travellers()
 	{
 		return $this->belongsToMany(
 			User::class,
