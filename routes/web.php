@@ -26,9 +26,7 @@ Route::get('/', function () {
 	/**
 	 * User'lardan sadece transportu olanların gelmesini istiyorum
 	 */
-	$a = User::whereHas('transports')->with('transports')->get();
-
-
+	$a = User::whereHas('transports')->with(['transports', 'transports.type'])->first();
 
 	return response($a);
 });
