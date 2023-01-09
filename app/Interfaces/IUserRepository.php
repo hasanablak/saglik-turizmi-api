@@ -8,9 +8,11 @@ interface IUserRepository
 
 	public function getUserById(int $id);
 
-	public function create(array $user);
+	public function createNewUser(array $user);
 
 	public function updateUserById(int $id, array $user);
+
+	public function deleteUserById(int $id);
 
 	public function login(array $credentials);
 

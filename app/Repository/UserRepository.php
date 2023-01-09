@@ -14,28 +14,42 @@ class UserRepository implements IUserRepository
 	public function getAllUsers()
 	{
 		return User::query()
+			->with('types')
 			->get();
 	}
 
 	public function getUserById(int $id)
 	{
-		return User::where('id', $id)->firstOrFail();
+		return User::where('id', $id)->with('types')->firstOrFail();
 	}
 
 
-	public function create($user)
+	public function createNewUser($newUser)
 	{
-		return User::create($user);
+		$user =  User::create($newUser);
+
+		$user->types()->attach($newUser["types"]);
+
+		return $this->getUserById($user->id);
 	}
 
 	public function updateUserById(int $id, array $userArray)
 	{
-		$user = User::findOrFail($id);
-		$user->update($userArray);
+		$user = User::where("id", $id);
 
-		return $user;
+		$user->update(collect($userArray)->only("email", "name")->toArray());
+
+		if (isset($userArray["types"])) {
+			$user->first()->types()->sync($userArray["types"]);
+		}
+
+		return $this->getUserById($id);
 	}
 
+	public function deleteUserById(int $id)
+	{
+		User::where("id", $id)->delete();
+	}
 	public function login($credentials)
 	{
 		$user = User::where('email', $credentials["email"])->first();
