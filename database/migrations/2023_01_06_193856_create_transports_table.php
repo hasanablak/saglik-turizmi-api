@@ -38,6 +38,8 @@ return new class extends Migration
 
 			$table->unsignedInteger('finish_district_id');
 			$table->foreign('finish_district_id')->references('id')->on('districts')->onDelete('cascade');
+
+			$table->dateTime("start_date");
 		});
 	}
 
