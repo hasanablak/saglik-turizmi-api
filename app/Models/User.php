@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\{UserTypes, Transport};
+use Illuminate\Database\Eloquent\Builder;
+use App\Filters\TravellerFilters\TravellerFilters;
 
 class User extends Authenticatable
 {
@@ -57,5 +59,10 @@ class User extends Authenticatable
 			//get: fn($value) => "",
 			set: fn ($value) => Hash::make($value)
 		);
+	}
+
+	public function scopeFilter(Builder $builder)
+	{
+		return (new TravellerFilters(request()))->filter($builder);
 	}
 }
