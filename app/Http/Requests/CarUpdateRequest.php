@@ -26,7 +26,7 @@ class CarUpdateRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			"plate"		=> ["min:8", "max:10", "unique:cars,plate,1"],
+			"plate"		=> ["min:8", "max:10", "unique:cars,plate," . request()->car],
 			"driver_id" =>	["exists:users,id"],
 			"seats_count" => ["integer", "max:16", "min:6"]
 		];
