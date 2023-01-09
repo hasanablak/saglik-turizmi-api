@@ -8,10 +8,12 @@ use Illuminate\Support\ServiceProvider;
 use App\Interfaces\IUserRepository;
 use App\Interfaces\ICarRepository;
 use App\Interfaces\ITransportRepository;
+use App\Interfaces\ITravellerRepository;
 
 use App\Repository\TransportRepository;
 use App\Repository\CarRepository;
 use App\Repository\UserRepository;
+use App\Repository\TravellerRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
 		$this->app->bind(ICarRepository::class, CarRepository::class);
 
 		$this->app->bind(ITransportRepository::class, TransportRepository::class);
+
+		$this->app->bind(ITravellerRepository::class, TravellerRepository::class);
 	}
 
 	/**

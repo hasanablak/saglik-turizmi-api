@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\TransportController;
+use App\Http\Controllers\TravellerController;
 use App\Http\Controllers\UserController;
 
 
@@ -24,4 +25,6 @@ Route::middleware("auth:sanctum")->group(function () {
 
 	Route::resource("transports", TransportController::class)
 		->except(["create", "edit"]);
+
+	Route::get("travellers", [TravellerController::class, "index"]);
 });
